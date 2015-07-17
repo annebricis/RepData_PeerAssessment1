@@ -76,8 +76,6 @@ filledSteps <- activity$steps
 filledSteps <- fill(filledSteps, meanIntervalSteps)
 
 filledActivity <-data.frame(filledSteps, activity$date, activity$interval)
-head(filledActivity)
-
 ```
 
 ```{r histogram2}
@@ -91,12 +89,19 @@ hist(totalSteps2, breaks=20, col="red", main="Histogram of the total number of s
 ```{r calculate2}
 meanFilledTotalSteps <- round(mean(totalSteps2, 2))
 medianFilledTotalSteps <- median(totalSteps2)
+
+meanDiff <- meanFilledTotalSteps - meanTotalSteps
+medianDiff <- round(medianFilledTotalSteps - medianTotalSteps, 2)
 ```
 
 Mean total number of steps taken per day (with substitution):       `r meanFilledTotalSteps`  
-Median total number of steps taken per day (with substitution:     `r medianFilledTotalSteps`
+Median total number of steps taken per day (with substitution:     `r medianFilledTotalSteps`  
 
 
+Difference in means for the two datasets:       `r meanDiff`  
+Difference in medians for the two datasets:     `r medianDiff`  
+
+So the impact of imputing missing data on the estimates of the total daily number of steps is very small when using the mean for the corresponding 5-minute interval as a substitute
 
 
 

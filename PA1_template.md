@@ -54,7 +54,7 @@ On average across all the days in the dataset, the maximum number of steps is in
 
 
 
-## Imputing missing valuesa
+## Imputing missing values
 
 ```r
 totalMissing <- length(activity$steps[is.na(activity$steps)])
@@ -82,17 +82,6 @@ filledSteps <- activity$steps
 filledSteps <- fill(filledSteps, meanIntervalSteps)
 
 filledActivity <-data.frame(filledSteps, activity$date, activity$interval)
-head(filledActivity)
-```
-
-```
-##   filledSteps activity.date activity.interval
-## 1   1.7169811    2012-10-01                 0
-## 2   0.3396226    2012-10-01                 5
-## 3   0.1320755    2012-10-01                10
-## 4   0.1509434    2012-10-01                15
-## 5   0.0754717    2012-10-01                20
-## 6   2.0943396    2012-10-01                25
 ```
 
 
@@ -110,12 +99,19 @@ hist(totalSteps2, breaks=20, col="red", main="Histogram of the total number of s
 ```r
 meanFilledTotalSteps <- round(mean(totalSteps2, 2))
 medianFilledTotalSteps <- median(totalSteps2)
+
+meanDiff <- meanFilledTotalSteps - meanTotalSteps
+medianDiff <- round(medianFilledTotalSteps - medianTotalSteps, 2)
 ```
 
 Mean total number of steps taken per day (with substitution):       1.0766\times 10^{4}  
-Median total number of steps taken per day (with substitution:     1.0766189\times 10^{4}
+Median total number of steps taken per day (with substitution:     1.0766189\times 10^{4}  
 
 
+Difference in means for the two datasets:       -0.19  
+Difference in medians for the two datasets:     1.19  
+
+So the impact of imputing missing data on the estimates of the total daily number of steps is very small when using the mean for the corresponding 5-minute interval as a substitute
 
 
 
