@@ -10,7 +10,7 @@ output:
 
 Load the data:
 ```{r load}
-activity<-read.csv("activity.csv")
+activity <- read.csv("activity.csv")
 ```
 
 
@@ -18,11 +18,20 @@ activity<-read.csv("activity.csv")
 ## What is mean total number of steps taken per day?
 
 ```{r histogram}
+## calculate total number of steps each day for use in the histogram and the calculations of mean and median after
+totalSteps <- with (activity, tapply(steps, date, sum))
+
 ## Histogram of the total number of steps taken each day
-with (activity, hist(tapply(steps, date, sum), breaks=20, col="red", main="Histogram of the total number of steps taken each day", xlab="Number of steps"))
+hist(totalSteps, breaks=20, col="red", main="Histogram of the total number of steps taken each day", xlab="Number of steps")
 ```
 
+```{r calculate}
+meanTotalSteps <- round(mean(totalSteps[!is.na(totalSteps)]), 2)
+medianTotalSteps <- median(totalSteps[!is.na(totalSteps)])
+```
 
+Mean total number of steps taken per day:       `r meanTotalSteps`  
+Median total number of steps taken per day:     `r medianTotalSteps`
 
 ## What is the average daily activity pattern?
 
