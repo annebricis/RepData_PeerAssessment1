@@ -49,7 +49,54 @@ maxInterval <- intervals[match(max(meanIntervalSteps),meanIntervalSteps)]
 On average across all the days in the dataset, the maximum number of steps is in interval:      `r maxInterval`
 
 
+
 ## Imputing missing values
+```{r}
+totalMissing <- length(activity$steps[is.na(activity$steps)])
+```
+
+The total number of missing values in the dataset is:   `r totalMissing`
+
+
+The strategy chosen for filling the missing values in the dataset is to replace NAs with the mean for the corresponding 5-minute interval
+
+```{r filled}
+fill <- function(x1, x2){
+        for (i in 1:length(x1)){
+                j=i %% 288
+                if(is.na(x1[i])){
+                        if(j==0){j=288}
+                        x1[i]=x2[j]
+                }
+        }
+        x1
+}
+
+filledSteps <- activity$steps
+filledSteps <- fill(filledSteps, meanIntervalSteps)
+
+filledActivity <-data.frame(filledSteps, activity$date, activity$interval)
+head(filledActivity)
+
+```
+
+```{r histogram2}
+## calculate total number of steps each day with filled dataset
+totalSteps2 <- with (filledActivity, tapply(filledSteps, activity.date, sum))
+
+## Histogram of the total number of steps taken each day
+hist(totalSteps2, breaks=20, col="red", main="Histogram of the total number of steps (with substitution)", xlab="Number of steps")
+```
+
+```{r calculate2}
+meanFilledTotalSteps <- round(mean(totalSteps2, 2))
+medianFilledTotalSteps <- median(totalSteps2)
+```
+
+Mean total number of steps taken per day (with substitution):       `r meanFilledTotalSteps`  
+Median total number of steps taken per day (with substitution:     `r medianFilledTotalSteps`
+
+
 
 
 
