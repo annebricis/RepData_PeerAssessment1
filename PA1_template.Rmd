@@ -33,8 +33,20 @@ medianTotalSteps <- median(totalSteps[!is.na(totalSteps)])
 Mean total number of steps taken per day:       `r meanTotalSteps`  
 Median total number of steps taken per day:     `r medianTotalSteps`
 
-## What is the average daily activity pattern?
 
+
+## What is the average daily activity pattern?
+```{r time}
+meanIntervalSteps<-with (activity, tapply(steps[!is.na(steps)], interval[!is.na(steps)], mean))
+intervals<-unique(activity$interval)
+plot(intervals,meanIntervalSteps, type="l", main="Time series plot of average steps for each 5 minute interval", xlab="Time intervals", ylab="Average number of steps")
+```
+
+```{r interval}
+maxInterval <- intervals[match(max(meanIntervalSteps),meanIntervalSteps)]
+```
+
+On average across all the days in the dataset, the maximum number of steps is in interval:      `r maxInterval`
 
 
 ## Imputing missing values
