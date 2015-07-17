@@ -1,15 +1,11 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 
 Load the data:
-```{r load}
+
+```r
 activity<-read.csv("activity.csv")
 ```
 
@@ -17,10 +13,13 @@ activity<-read.csv("activity.csv")
 
 ## What is mean total number of steps taken per day?
 
-```{r histogram}
+
+```r
 ## Histogram of the total number of steps taken each day
 with (activity, hist(tapply(steps, date, sum), breaks=20, col="red", main="Histogram of the total number of steps taken each day", xlab="Number of steps"))
 ```
+
+![](PA1_template_files/figure-html/histogram-1.png) 
 
 
 
