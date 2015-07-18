@@ -116,3 +116,19 @@ So the impact of imputing missing data on the estimates of the total daily numbe
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+```r
+isWeekend <- transform(filledActivity[,2],weekend=as.POSIXlt(filledActivity$activity.date, format='%Y-%m-%d')$wday %in% c(0,6))
+filledActivity$weekend <-as.factor(isWeekend$weekend)
+```
+
+
+```r
+par(mfrow=c(2,1))
+meanWeekendIntervalSteps<-with (filledActivity, tapply(filledSteps[weekend==TRUE], activity.interval[weekend==TRUE], mean))
+meanWeekdayIntervalSteps<-with (filledActivity, tapply(filledSteps[weekend==FALSE], activity.interval[weekend==FALSE], mean))
+plot(intervals,meanWeekendIntervalSteps, type="l", main="Weekend time series plot of the 5 minute interval and average steps", xlab="Time intervals", ylab="Average number of steps")
+plot(intervals,meanWeekdayIntervalSteps, type="l", main="Weekday time series plot of the 5 minute interval and average steps", xlab="Time intervals", ylab="Average number of steps")
+```
+
+![](PA1_template_files/figure-html/time2-1.png) 
